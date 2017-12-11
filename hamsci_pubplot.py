@@ -9,7 +9,7 @@ import seaborn as sns
 sns.set_context('talk',font_scale=1.)
 
 
-fn = 'Biblio-Bibtex.bib'
+fn = 'data/Biblio-Bibtex.bib'
 pat = r'.*year.*=.*{\d{4}(?=}.*)'
 
 years = []
