@@ -27,10 +27,11 @@ def readlogs(fn:Path):
 
     assert cs.size == count,'was callsign file read correctly?'
 
-    return cs
+    return cs.astype(str)
+
 
 def locatehams(cs):
-    lu = LookupLib(lookuptype='countryfile')
+    lu = LookupLib(lookuptype='countryfile',filename='cty.plist')
     ci = Callinfo(lu)
     for c in cs:
         i = ci.get_all(c)
