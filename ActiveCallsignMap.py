@@ -8,7 +8,7 @@ import webbrowser
 import folium
 from pathlib import Path
 import pandas as pd
-from hamsci_datasci.findhams import readlogs,locatehams
+from hamsci_datasci.findhams import readlogs,locatehams,country_rename
 
 if __name__ == '__main__':
     from argparse import ArgumentParser
@@ -23,48 +23,8 @@ if __name__ == '__main__':
     loc = locatehams(cs)
 
     cdata = pd.DataFrame(index=cs,data=loc)
-# %% patch country names
-# https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
-# FIXME: this essentially reduces resolution for now, till we get JSON shapefile that distinguishes these regions
-    cdata['country'] = cdata['country'].str.replace('European Russia','Russian Federation')
-    cdata['country'] = cdata['country'].str.replace('Asiatic Russia','Russian Federation')
-    cdata['country'] = cdata['country'].str.replace('Kaliningrad','Russian Federation')
-    cdata['country'] = cdata['country'].str.replace('Scotland','United Kingdom')
-    cdata['country'] = cdata['country'].str.replace('England','United Kingdom')
-    cdata['country'] = cdata['country'].str.replace('Northern Ireland','United Kingdom')
-    cdata['country'] = cdata['country'].str.replace('Wales','United Kingdom')
-    cdata['country'] = cdata['country'].str.replace('Asiatic Turkey','Turkey')
-    cdata['country'] = cdata['country'].str.replace('European Turkey','Turkey')
-    cdata['country'] = cdata['country'].str.replace('Sicily','Italy')
-    cdata['country'] = cdata['country'].str.replace('Sardinia','Italy')
-    cdata['country'] = cdata['country'].str.replace('Balearic Islands','Spain')
-    cdata['country'] = cdata['country'].str.replace('Canary Islands','Spain')
-    cdata['country'] = cdata['country'].str.replace('Ceuta & Melilla','Spain')
-    cdata['country'] = cdata['country'].str.replace('West Malaysia','Malaysia')
-    cdata['country'] = cdata['country'].str.replace('East Malaysia','Malaysia')
-    cdata['country'] = cdata['country'].str.replace('Hawaii','United States')
-    cdata['country'] = cdata['country'].str.replace('Alaska','United States')
-    cdata['country'] = cdata['country'].str.replace('US Virgin Islands','United States')
-    cdata['country'] = cdata['country'].str.replace('Crete','Greece')
-    cdata['country'] = cdata['country'].str.replace('Svalbard','Svalbard and Jan Mayen')
-    cdata['country'] = cdata['country'].str.replace('Ogasawara','Japan')
 
-# these are simple renamings
-    cdata['country'] = cdata['country'].str.replace("Laos","Lao People's Democratic Republic")
-    cdata['country'] = cdata['country'].str.replace('Bolivia','Bolivia, Plurinational State of')
-    cdata['country'] = cdata['country'].str.replace('Fed. Rep. of Germany','Germany')
-    cdata['country'] = cdata['country'].str.replace('Republic of Moldova','Moldova, Republic of')
-    cdata['country'] = cdata['country'].str.replace('Moldova','Moldova, Republic of')
-    cdata['country'] = cdata['country'].str.replace('Bosnia-Herzegovina','Bosnia and Herzegovina')
-    cdata['country'] = cdata['country'].str.replace('Macedonia','Macedonia, Republic of')
-    cdata['country'] = cdata['country'].str.replace('Micronesia','Micronesia, Federated States of')
-    cdata['country'] = cdata['country'].str.replace('Republic of Korea','Korea, Republic of')
-    cdata['country'] = cdata['country'].str.replace('Taiwan','Taiwan, Province of China')
-    cdata['country'] = cdata['country'].str.replace('Czech Republic','Czechia')
-    cdata['country'] = cdata['country'].str.replace('Slovak Republic','Slovakia')
-    cdata['country'] = cdata['country'].str.replace('Venezuela','Venezuela, Bolivarian Republic of')
-    cdata['country'] = cdata['country'].str.replace('Vietnam','Viet Nam')
-    cdata['country'] = cdata['country'].str.replace('Tanzania','Tanzania, United Republic of')
+    cdata['country'] = country_rename(cdata['country'])
 # %% count entries
     chist = cdata['country'].value_counts()
 
