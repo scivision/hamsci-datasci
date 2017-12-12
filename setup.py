@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-install_requires=['numpy','pyhamtools','pyephem']
+install_requires=['numpy','pyhamtools','pyephem','folium']
 tests_require=['nose','coveralls']
 # %%
 from setuptools import setup,find_packages
