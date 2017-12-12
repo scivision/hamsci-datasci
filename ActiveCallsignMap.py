@@ -33,9 +33,11 @@ def readlogs(fn:Path):
 def locatehams(cs):
     lu = LookupLib(lookuptype='countryfile',filename='cty.plist')
     ci = Callinfo(lu)
-    for c in cs:
-        i = ci.get_all(c)
-        print(i)
+
+    loc = [ci.get_all(c) for c in cs]
+
+    return loc
+
 
 def plotlogs(cs):
     ax = figure().gca()
@@ -49,8 +51,8 @@ if __name__ == '__main__':
 
     cs = readlogs(p.fn)
 
-    countries = locatehams(cs)
+    loc = locatehams(cs)
 
-    plotlogs(countries)
+    plotlogs(loc)
 
     show()
